@@ -19,3 +19,15 @@ describe('index.html', () => {
     });
   });
 });
+
+describe('index.html\'s body has a H1 tag', () => {
+  it('should have a h1 tag', (done) => {
+    const index = fs.readFileSync('./src/index.html', 'utf-8');
+    jsdom.env(index, (err, window) => {
+      const nrOfH1s = window.document.getElementsByTagName('h1').length;
+      expect(nrOfH1s).to.equal(1);
+      done();
+      window.close();
+    });
+  });
+});
