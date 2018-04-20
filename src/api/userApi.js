@@ -1,11 +1,26 @@
 import 'whatwg-fetch';
+import getBaseUrl from './baseUrl';
+
+const baseUrl = getBaseUrl();
 
 export function getUsers() {
   return myGet('users');
 }
 
+export function deleteUser(id) {
+  return del(`users/${id}`);
+}
+
 function myGet(url) {
-  return fetch(url).then(onSuccess, onError);
+  return fetch(baseUrl + url).then(onSuccess, onError);
+}
+
+function del(url) {
+  const request = new Resques(baseUrl + url, {
+    method: 'DELETE'
+  });
+
+  return fetch(request).then(onSuccess, onError);
 }
 
 function onSuccess(response) {
